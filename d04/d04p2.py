@@ -17,8 +17,8 @@ Card 6: 31 18 13 56 72 | 74 77 10 23 35 67 36 11""".strip(), 30),
 def evaluate_card(card):
     card_id, numbers = [s.strip() for s in card.split(':')]
     winning_numbers, my_numbers = [s.strip() for s in numbers.split('|')]
-    winning_numbers = set(int(s) for s in re.split('\s+', winning_numbers))
-    my_numbers = set(int(s) for s in re.split('\s+', my_numbers))
+    winning_numbers = set(int(s) for s in re.split(r'\s+', winning_numbers))
+    my_numbers = set(int(s) for s in re.split(r'\s+', my_numbers))
     matches = len(winning_numbers.intersection(my_numbers))
     return matches
 
@@ -29,7 +29,7 @@ def solve(input):
     for index, card in enumerate(lines):
         matches = evaluate_card(card)
         for i in range(index + 1, index + matches + 1):
-            cards[i] += 1 * cards[index]
+            cards[i] += cards[index]
     return sum(cards)
 
 
