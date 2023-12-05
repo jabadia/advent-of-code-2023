@@ -8,8 +8,7 @@ from utils.fetch_input import _extract_path_day_part
 
 
 def submit_answer(answer):
-    calling_frame = inspect.stack()[1]
-    day_path, year, day, part = _extract_path_day_part(calling_frame)
+    day_path, year, day, part = _extract_path_day_part()
     response_file = os.path.join(day_path, f'answer_p{part}.txt')
     if os.path.exists(response_file):
         submitted_answer = open(response_file, "r").read().strip()
@@ -31,7 +30,7 @@ def submit_answer(answer):
     if "That's the right answer!" in text:
         print("## [DEBUG] answer correct")
         with open(response_file, 'w') as f:
-            f.write(answer)
+            f.write(str(answer))
     else:
         print("## [ERROR] answer wrong")
         answer_from = text.find('<article>')

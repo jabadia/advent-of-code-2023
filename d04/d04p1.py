@@ -1,5 +1,4 @@
-from utils.fetch_input import fetch_input
-from utils.submit_answer import submit_answer
+from utils.main import main
 from utils.test_case import TestCase
 import re
 
@@ -30,14 +29,5 @@ def solve(input):
 
 
 if __name__ == '__main__':
-    input = fetch_input()
-    fails = 0
-    for case in TEST_CASES:
-        result = solve(case.case)
-        if not case.check(result):
-            fails += 1
+    main(solve, TEST_CASES)
 
-    if not fails:
-        answer = solve(input)
-        print(answer)
-        submit_answer(answer)

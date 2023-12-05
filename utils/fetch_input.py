@@ -1,16 +1,16 @@
-import inspect
 import os.path
 import re
+import sys
 
 import requests
 
 from utils import secrets
 
 
-def _extract_path_day_part(calling_frame):
-    module = inspect.getmodule(calling_frame[0])
-    module_name = os.path.basename(module.__file__)
-    module_path = os.path.dirname(module.__file__)
+def _extract_path_day_part():
+    module = sys.argv[0]
+    module_name = os.path.basename(module)
+    module_path = os.path.dirname(module)
     matches = re.match(r'd(\d{1,2})p([12])\.py', module_name)
     day, part = int(matches.group(1)), int(matches.group(2))
     matches = re.search(r'(\d{4})', module_path)
@@ -19,8 +19,7 @@ def _extract_path_day_part(calling_frame):
 
 
 def fetch_input():
-    calling_frame = inspect.stack()[1]
-    day_path, year, day, part = _extract_path_day_part(calling_frame)
+    day_path, year, day, part = _extract_path_day_part()
     input_file = os.path.join(day_path, 'input.txt')
     if os.path.exists(input_file):
         print(f'## [INFO] reading cached input from {input_file}')
